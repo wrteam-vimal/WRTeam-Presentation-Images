@@ -4,14 +4,15 @@ WRTeam product images and videos, grouped by product folder.
 
 **License:** Proprietary. © 2026 WRTeam. All rights reserved. For use by authorised WRTeam members only. See [LICENSE](LICENSE).
 
-Total images: 88 · Total videos: 0 · Folders: 30
+Total images: 89 · Total videos: 0 · Folders: 30
 
 <details>
-<summary><b>Uncategorized</b> (1 file)</summary>
+<summary><b>SnapBuy</b> (2 files)</summary>
 
 | # | Title | Type | Direct (Raw) Link |
 |---|---|---|---|
-| 1 | Shiprocket Addons Gif | Image | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/shiprocket-addons-gif.gif |
+| 1 | Daily Reward Spinner | Image | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/SnapBuy/daily-reward-spinner.png |
+| 2 | Shiprocket Addons Gif | Image | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/SnapBuy/shiprocket-addons-gif.gif |
 
 </details>
 
@@ -112,13 +113,6 @@ Total images: 88 · Total videos: 0 · Folders: 30
 
 <details>
 <summary><b>eClassify - Cars and Motors</b> (0 files)</summary>
-
-_No files yet._
-
-</details>
-
-<details>
-<summary><b>SnapBuy</b> (0 files)</summary>
 
 _No files yet._
 
