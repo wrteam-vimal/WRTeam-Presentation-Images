@@ -8,13 +8,6 @@ Total images: 89 · Total videos: 0 · Folders: 30
 
 ## Folders
 
-| Folder | Files |
-|---|---|
-| [📁 SnapBuy](#folder-snapbuy) | 2 |
-| [📁 eMarket](#folder-emarket) | 87 |
-
-<sub>No files yet: eClassify - Cars and Motors, eClassify, eSchool SaaS, eBroker, eDemand, Elite Quiz - Flutter App, Elite Quiz - Web Version, eStay, eTaxi, News App and Web, eLMS, eSchool, Tic Tac Toe, Cashfree Payment Gateway Add-on for eClassify, Dedicated Application for Schools - eSchool SaaS Add-on, Shiprocket Shipping Add-on for SnapBuy, PayU Payment Gateway Add-on, HotelDash, Fitvive, BizFusionX, Techify, Servly, BicyCart, CropCore, PlugNpark, Aurenix, Bondly, Musinto</sub>
-
 <a id="folder-snapbuy"></a>
 <details>
 <summary>📁 <b>SnapBuy</b> (2 files)</summary>
@@ -962,10 +955,9 @@ _No files yet._
 
 **Copy an image tag**
 
-1. Pick a product in **[Folders](#folders)** at the top. The link jumps to it.
-2. Click the product name to open it.
-3. Click the copy button at the top-right of any code block to copy that one `<img>` tag. Open **📋 Copy all** to copy every tag in the folder at once.
-4. Click **🔍 View** to see the image before copying.
+1. In **[Folders](#folders)** at the top, click a product name to open it. Recently changed products are listed first.
+2. Click the copy button at the top-right of any code block to copy that one `<img>` tag. Open **📋 Copy all** to copy every tag in the folder at once.
+3. Click **🔍 View** to see the image before copying.
 
 **Add images**
 

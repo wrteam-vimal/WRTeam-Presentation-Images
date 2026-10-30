@@ -260,16 +260,7 @@ def main():
         f"Total images: {len(every) - videos} · Total videos: {videos} · Folders: {len(folders)}",
         "",
     ]
-    # Quick index: folders with files (latest changes first) link to their section.
-    filled = [s for s in ordered if rows[s]]
-    empty = [s for s in ordered if not rows[s]]
     lines += ['<a id="folders"></a>', "", "## Folders", ""]
-    if filled:
-        lines += ["| Folder | Files |", "|---|---|"]
-        lines += [f"| [📁 {s}](#{anchor(s)}) | {len(rows[s])} |" for s in filled]
-        lines.append("")
-    if empty:
-        lines += [f"<sub>No files yet: {', '.join(empty)}</sub>", ""]
     for section in ordered:
         n = len(rows[section])
         lines += [
