@@ -1,7 +1,7 @@
-"""Rename images to URL-safe names and rebuild the README image table.
+"""Rename images and videos to URL-safe names and rebuild the README tables.
 
 Titles already in README.md are kept, so a title can be edited by hand.
-New images get a title derived from their original file name.
+New files get a title derived from their original file name.
 """
 import os
 import re
@@ -11,7 +11,9 @@ import sys
 REPO = os.environ.get("REPO", "wrteam-vimal/eMarket-Images")
 BRANCH = os.environ.get("BRANCH", "main")
 README = "README.md"
-EXTS = {".webp", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".avif"}
+IMAGE_EXTS = {".webp", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".avif"}
+VIDEO_EXTS = {".mp4", ".webm", ".mov", ".m4v"}
+EXTS = IMAGE_EXTS | VIDEO_EXTS
 ROW = re.compile(r"^\|\s*\d+\s*\|\s*(.*?)\s*\|\s*\[([^\]]+)\]")
 SMALL = {"and", "or", "of", "for", "to", "the", "a", "an", "in", "on", "with"}
 
@@ -45,6 +47,17 @@ def sort_key(name):
         return (1, (), stem)
     nums = tuple(int(n) for n in m.group(1).split("-"))
     return (0, nums, stem[m.end():])
+
+
+def table(names, label, titles):
+    rows = [f"| # | {label} | GitHub Link | Direct (Raw) Link |", "|---|---|---|---|"]
+    for i, name in enumerate(names, 1):
+        title = titles.get(name) or title_from(os.path.splitext(name)[0])
+        rows.append(
+            f"| {i} | {title} | [{name}](https://github.com/{REPO}/blob/{BRANCH}/{name}) "
+            f"| https://raw.githubusercontent.com/{REPO}/{BRANCH}/{name} |"
+        )
+    return rows
 
 
 def git(*args):
@@ -82,24 +95,20 @@ def main():
         taken.add(new)
         titles.setdefault(new, titles.pop(f, None) or title_from(stem))
 
-    images = sorted(taken, key=sort_key)
+    images = sorted((f for f in taken if os.path.splitext(f)[1].lower() in IMAGE_EXTS), key=sort_key)
+    videos = sorted((f for f in taken if os.path.splitext(f)[1].lower() in VIDEO_EXTS), key=sort_key)
     lines = [
         head or f"# {REPO.split('/')[-1]}\n\neMarket platform feature and asset images.",
         "",
         f"Total images: {len(images)}",
         "",
-        "| # | Image | GitHub Link | Direct (Raw) Link |",
-        "|---|---|---|---|",
+        *table(images, "Image", titles),
     ]
-    for i, name in enumerate(images, 1):
-        title = titles.get(name) or title_from(os.path.splitext(name)[0])
-        lines.append(
-            f"| {i} | {title} | [{name}](https://github.com/{REPO}/blob/{BRANCH}/{name}) "
-            f"| https://raw.githubusercontent.com/{REPO}/{BRANCH}/{name} |"
-        )
+    if videos:
+        lines += ["", "## Videos", "", f"Total videos: {len(videos)}", "", *table(videos, "Video", titles)]
     with open(README, "w", encoding="utf-8") as fh:
         fh.write("\n".join(lines) + "\n")
-    print(f"README.md lists {len(images)} images")
+    print(f"README.md lists {len(images)} images and {len(videos)} videos")
 
 
 if __name__ == "__main__":

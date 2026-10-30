@@ -1,7 +1,7 @@
 name: Update image links
 
-# On every push to main: renames new images to URL-safe names and rebuilds
-# the README table (GitHub + raw links) so it always matches the images.
+# On every push to main: renames new images/videos to URL-safe names and
+# rebuilds the README tables (GitHub + raw links) so they match the files.
 #
 # Just add, rename or delete images and push (or upload via the GitHub UI).
 # Titles already in README.md are kept, so you can edit a title by hand.
