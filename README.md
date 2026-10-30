@@ -9,6 +9,7 @@ Total images: 89 · Total videos: 0 · Folders: 30
 <details>
 <summary><b>SnapBuy</b> (2 files)</summary>
 
+<blockquote>
 <details>
 <summary>Copy all (2 tags)</summary>
 
@@ -18,6 +19,7 @@ Total images: 89 · Total videos: 0 · Folders: 30
 ```
 
 </details>
+</blockquote>
 
 **1. Daily Reward Spinner** (Image)
 
@@ -36,6 +38,7 @@ Total images: 89 · Total videos: 0 · Folders: 30
 <details>
 <summary><b>eMarket</b> (87 files)</summary>
 
+<blockquote>
 <details>
 <summary>Copy all (87 tags)</summary>
 
@@ -130,6 +133,7 @@ Total images: 89 · Total videos: 0 · Folders: 30
 ```
 
 </details>
+</blockquote>
 
 **1. One Platform to Power Every Ecommerce Business** (Image)
 

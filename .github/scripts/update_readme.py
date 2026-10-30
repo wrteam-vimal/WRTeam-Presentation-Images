@@ -186,7 +186,9 @@ def tag(path, title):
 def files_block(paths, titles):
     """A collapsible "copy all" code block, then one code block per file (GitHub adds copy buttons)."""
     named = [(p, titles.get(p) or titles.get(os.path.basename(p)) or title_from(os.path.splitext(os.path.basename(p))[0])) for p in paths]
+    # GitHub does not indent nested <details>, so the blockquote shows it is inside the folder.
     out = [
+        "<blockquote>",
         "<details>",
         f"<summary>Copy all ({len(named)} tag{'' if len(named) == 1 else 's'})</summary>",
         "",
@@ -195,6 +197,7 @@ def files_block(paths, titles):
         "```",
         "",
         "</details>",
+        "</blockquote>",
         "",
     ]
     for i, (p, t) in enumerate(named, 1):
