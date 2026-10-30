@@ -1,4 +1,4 @@
-# eMarket-Assets
+# eMarket-Images
 
 eMarket platform feature and asset images.
 
