@@ -1,7 +1,7 @@
 name: Update image links
 
 # On every push to main: renames new images/videos to URL-safe names and
-# rebuilds the README (GitHub + raw links) so it matches the files. Every
+# rebuilds the README (raw links) so it matches the files. Every
 # top-level folder gets its own collapsible table; new or changed files go
 # to the top of their folder's table and that folder moves to the top.
 #

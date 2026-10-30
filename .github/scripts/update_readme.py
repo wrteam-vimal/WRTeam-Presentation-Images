@@ -13,7 +13,7 @@ import os
 import re
 import subprocess
 import sys
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 REPO = os.environ.get("REPO", "wrteam-vimal/eMarket-Images")
 BRANCH = os.environ.get("BRANCH", "main")
@@ -25,7 +25,11 @@ IMAGE_EXTS = {".webp", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".avif"}
 VIDEO_EXTS = {".mp4", ".webm", ".mov", ".m4v"}
 EXTS = IMAGE_EXTS | VIDEO_EXTS
 SECTION = re.compile(r"^<summary><b>(.+?)</b>")
-ROW = re.compile(r"^\|\s*\d+\s*\|\s*(.*?)\s*\|\s*(?:(?:Image|Video)\s*\|\s*)?\[([^\]]+)\]")
+# Title plus file name, read from the raw link (or the older "[name](...)" link column).
+ROW = re.compile(
+    r"^\|\s*\d+\s*\|\s*(.*?)\s*\|\s*(?:(?:Image|Video)\s*\|\s*)?"
+    r"(?:\[([^\]]+)\]|https://raw\.githubusercontent\.com/\S*/([^/\s|]+))"
+)
 SMALL = {"and", "or", "of", "for", "to", "the", "a", "an", "in", "on", "with"}
 COPYRIGHT = re.compile(r"((?:©|\(c\)) )(\d{4})(?:-\d{4})?( WRTeam)", re.IGNORECASE)
 
@@ -115,8 +119,9 @@ def read_readme():
             continue
         m = ROW.match(line)
         if m:
+            name = m.group(2) or unquote(m.group(3))
             folder = "" if section in (None, ROOT) else section
-            key = join(folder, m.group(2)) if section else m.group(2)
+            key = join(folder, name) if section else name
             titles[key] = m.group(1)
             order.setdefault(section, []).append(key)
     return head, titles, order, sections
@@ -150,16 +155,12 @@ def rename_media(folder, titles):
 
 
 def table(paths, titles):
-    rows = ["| # | Title | Type | GitHub Link | Direct (Raw) Link |", "|---|---|---|---|---|"]
+    rows = ["| # | Title | Type | Direct (Raw) Link |", "|---|---|---|---|"]
     for i, path in enumerate(paths, 1):
         name = os.path.basename(path)
         title = titles.get(path) or titles.get(name) or title_from(os.path.splitext(name)[0])
         kind = "Video" if os.path.splitext(name)[1].lower() in VIDEO_EXTS else "Image"
-        url = quote(path)
-        rows.append(
-            f"| {i} | {title} | {kind} | [{name}](https://github.com/{REPO}/blob/{BRANCH}/{url}) "
-            f"| https://raw.githubusercontent.com/{REPO}/{BRANCH}/{url} |"
-        )
+        rows.append(f"| {i} | {title} | {kind} | https://raw.githubusercontent.com/{REPO}/{BRANCH}/{quote(path)} |")
     return rows
 
 
