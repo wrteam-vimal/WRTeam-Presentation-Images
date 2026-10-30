@@ -1,6 +1,6 @@
 # WRTeam-Presentation-Images
 
-<sub>WRTeam product images and videos, grouped by product · © 2026 WRTeam, authorised members only ([LICENSE](LICENSE)) · **[How to use ↓](#how-to-use)**</sub>
+<sub>WRTeam product images and videos, grouped by product · © 2026 WRTeam, authorised members only ([LICENSE](LICENSE)) · **[How to use](.github/CONTRIBUTING.md)**</sub>
 
 Total images: 89 · Total videos: 0 · Folders: 30
 
@@ -946,28 +946,3 @@ _No files yet._
 [⬆ Back to folders](#folders)
 
 </details>
-
----
-
-<a id="how-to-use"></a>
-
-## How to use
-
-**Copy an image tag**
-
-1. In **[Folders](#folders)** at the top, click a product name to open it. Recently changed products are listed first.
-2. Click the copy button at the top-right of any code block to copy that one `<img>` tag. Open **📋 Copy all** to copy every tag in the folder at once.
-3. Click **🔍 View** to see the image before copying.
-
-**Add images**
-
-1. On GitHub, open the product folder, then **Add file → Upload files**.
-2. Drop images (`webp`, `png`, `jpg`, `gif`, `svg`, `avif`) or videos (`mp4`, `webm`, `mov`) and commit to `main`.
-3. In about a minute the file gets a URL-safe name and appears at the top of its folder.
-
-> [!TIP]
-> - **New product:** create a folder with at least one file (a `.gitkeep` works). It gets its own section automatically.
-> - **Change a title:** edit its bold `N. Title` line in this README. The tags update on the next push.
-> - **Recently changed** folders and files are always listed first.
-
-[⬆ Back to folders](#folders)
