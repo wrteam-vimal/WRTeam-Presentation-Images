@@ -22,6 +22,7 @@ BEFORE = os.environ.get("BEFORE", "")  # commit before this push, if known
 README = "README.md"
 LICENSE = "LICENSE"
 ROOT = "Uncategorized"  # section for media files left in the repo root
+FOOTER = '<a id="how-to-use"></a>'  # start of the hand-written guide at the end of the README
 IMAGE_EXTS = {".webp", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".avif"}
 VIDEO_EXTS = {".mp4", ".webm", ".mov", ".m4v"}
 EXTS = IMAGE_EXTS | VIDEO_EXTS
@@ -103,15 +104,20 @@ def changed_paths():
 
 
 def read_readme():
-    """Return (head, titles, per-section row order, section order) from README.md.
+    """Return (head, titles, per-section row order, section order, footer) from README.md.
 
+    The head (above "Total images:") and the footer (from the How to use anchor
+    to the end) are hand-written and kept as they are.
     Rows found before any section come from the old single-table layout and
     are keyed by bare file name under the None section.
     """
-    head, titles, order, sections = None, {}, {}, []
+    head, titles, order, sections, footer = None, {}, {}, [], None
     if not os.path.exists(README):
-        return head, titles, order, sections
+        return head, titles, order, sections, footer
     text = open(README, encoding="utf-8").read()
+    if FOOTER in text:
+        text, footer = text.split(FOOTER, 1)
+        footer = FOOTER + footer.rstrip()
     if "\nTotal images:" in text:
         head = text.split("\nTotal images:")[0].rstrip()
     section, pending = None, None
@@ -140,7 +146,7 @@ def read_readme():
             key = join(folder, name) if section else name
             titles[key] = m.group(1)
             order.setdefault(section, []).append(key)
-    return head, titles, order, sections
+    return head, titles, order, sections, footer
 
 
 def rename_media(folder, titles):
@@ -219,7 +225,7 @@ def files_block(paths, titles):
 
 
 def main():
-    head, titles, order, sections = read_readme()
+    head, titles, order, sections, footer = read_readme()
     changed = changed_paths()
     folders = sorted(d for d in os.listdir(".") if os.path.isdir(d) and not d.startswith("."))
 
@@ -278,6 +284,8 @@ def main():
             "",
         ]
     with open(README, "w", encoding="utf-8") as fh:
+        if footer:
+            lines += ["---", "", footer]
         fh.write(stamp_year("\n".join(lines).rstrip() + "\n"))
     print(f"README.md lists {len(every)} files in {len(ordered)} sections")
 
