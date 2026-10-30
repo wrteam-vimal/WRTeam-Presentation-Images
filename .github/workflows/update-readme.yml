@@ -7,10 +7,15 @@ name: Update image links
 # Titles already in README.md are kept, so you can edit a title by hand.
 # No secrets needed: it commits back with the built-in GITHUB_TOKEN, which
 # does not re-trigger this workflow.
+#
+# It also runs every 1 January to roll the copyright year range in LICENSE
+# and README.md forward (e.g. "2026" -> "2026-2027").
 
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "5 0 1 1 *"
   workflow_dispatch:
 
 permissions:

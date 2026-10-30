@@ -2,7 +2,9 @@
 
 Titles already in README.md are kept, so a title can be edited by hand.
 New files get a title derived from their original file name.
+Also keeps the WRTeam copyright year range in README.md and LICENSE current.
 """
+import datetime
 import os
 import re
 import subprocess
@@ -11,11 +13,25 @@ import sys
 REPO = os.environ.get("REPO", "wrteam-vimal/eMarket-Images")
 BRANCH = os.environ.get("BRANCH", "main")
 README = "README.md"
+LICENSE = "LICENSE"
 IMAGE_EXTS = {".webp", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".avif"}
 VIDEO_EXTS = {".mp4", ".webm", ".mov", ".m4v"}
 EXTS = IMAGE_EXTS | VIDEO_EXTS
 ROW = re.compile(r"^\|\s*\d+\s*\|\s*(.*?)\s*\|\s*\[([^\]]+)\]")
 SMALL = {"and", "or", "of", "for", "to", "the", "a", "an", "in", "on", "with"}
+COPYRIGHT = re.compile(r"((?:©|\(c\)) )(\d{4})(?:-\d{4})?( WRTeam)", re.IGNORECASE)
+
+
+def stamp_year(text, year=None):
+    """Turn "© 2026 WRTeam" into "© 2026-<year> WRTeam", keeping the first year."""
+    year = year or datetime.datetime.now(datetime.timezone.utc).year
+
+    def repl(m):
+        first = int(m.group(2))
+        span = f"{first}-{year}" if year > first else str(first)
+        return f"{m.group(1)}{span}{m.group(3)}"
+
+    return COPYRIGHT.sub(repl, text)
 
 
 def slugify(stem):
@@ -107,8 +123,13 @@ def main():
     if videos:
         lines += ["", "## Videos", "", f"Total videos: {len(videos)}", "", *table(videos, "Video", titles)]
     with open(README, "w", encoding="utf-8") as fh:
-        fh.write("\n".join(lines) + "\n")
+        fh.write(stamp_year("\n".join(lines) + "\n"))
     print(f"README.md lists {len(images)} images and {len(videos)} videos")
+
+    if os.path.exists(LICENSE):
+        text = open(LICENSE, encoding="utf-8").read()
+        with open(LICENSE, "w", encoding="utf-8") as fh:
+            fh.write(stamp_year(text))
 
 
 if __name__ == "__main__":
