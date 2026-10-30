@@ -95,13 +95,3 @@ Total images: 87
 | 85 | Imgi 230 5b8a7f5bda1d4017a184018928eb97b1 | [imgi-230-5b8a7f5bda1d4017a184018928eb97b1.png](https://github.com/wrteam-vimal/eMarket-Images/blob/main/imgi-230-5b8a7f5bda1d4017a184018928eb97b1.png) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/imgi-230-5b8a7f5bda1d4017a184018928eb97b1.png |
 | 86 | New dashboard | [new-dashboard.webp](https://github.com/wrteam-vimal/eMarket-Images/blob/main/new-dashboard.webp) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/new-dashboard.webp |
 | 87 | Update V4.0.2 | [update-v4-0-2.webp](https://github.com/wrteam-vimal/eMarket-Images/blob/main/update-v4-0-2.webp) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/update-v4-0-2.webp |
-
-## Videos
-
-Total videos: 3
-
-| # | Video | GitHub Link | Direct (Raw) Link |
-|---|---|---|---|
-| 1 | eMarket Install Part1 Localhost | [emarket-install-part1-localhost.mp4](https://github.com/wrteam-vimal/eMarket-Images/blob/main/emarket-install-part1-localhost.mp4) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/emarket-install-part1-localhost.mp4 |
-| 2 | eMarket Install Part2 Live Server cPanel aaPanel | [emarket-install-part2-live-server-cpanel-aapanel.mp4](https://github.com/wrteam-vimal/eMarket-Images/blob/main/emarket-install-part2-live-server-cpanel-aapanel.mp4) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/emarket-install-part2-live-server-cpanel-aapanel.mp4 |
-| 3 | eMarket Intro 90s Real Screens | [emarket-intro-90s-real-screens.mp4](https://github.com/wrteam-vimal/eMarket-Images/blob/main/emarket-intro-90s-real-screens.mp4) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/emarket-intro-90s-real-screens.mp4 |
