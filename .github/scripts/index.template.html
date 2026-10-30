@@ -180,17 +180,6 @@
   .card .body { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px 14px; flex: 1; }
   .card .title { margin: 0; font-size: 14px; font-weight: 600; }
   .card .sub { color: var(--muted); font-size: 12px; margin-top: -6px; overflow-wrap: anywhere; }
-  .code {
-    margin: 0;
-    padding: 8px 10px;
-    border-radius: 8px;
-    background: var(--soft);
-    font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    white-space: pre-wrap;
-    word-break: break-all;
-    max-height: 84px;
-    overflow: auto;
-  }
   .card .row { display: flex; gap: 8px; margin-top: auto; }
   .card .row .btn { flex: 1; justify-content: center; }
 
@@ -382,7 +371,6 @@
         { class: "body" },
         el("h3", { class: "title", text: file.title }),
         el("div", { class: "sub", text: `${file.kind} · ${file.name}` }),
-        el("pre", { class: "code", text: file.tag }),
         el(
           "div",
           { class: "row" },
