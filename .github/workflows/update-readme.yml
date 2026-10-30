@@ -4,6 +4,8 @@ name: Update image links
 # rebuilds the README so it matches the files. Every top-level folder gets a
 # collapsible section with copyable <img> tags (one "copy all" block plus one
 # block per file); new or changed files and their folder move to the top.
+# It also rebuilds index.html (tabbed browse page for GitHub Pages) from
+# .github/scripts/index.template.html.
 #
 # Just add, rename or delete images and push (or upload via the GitHub UI).
 # A new folder is picked up automatically once it holds a file (git does

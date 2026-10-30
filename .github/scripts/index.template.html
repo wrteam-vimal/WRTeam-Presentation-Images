@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>WRTeam Presentation Images</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f5f6f8;
+    --panel: #ffffff;
+    --text: #1b1f24;
+    --muted: #5f6b78;
+    --line: #dde2e8;
+    --soft: #eef1f5;
+    --accent: #2457d6;
+    --accent-soft: #e6edfc;
+    --accent-text: #ffffff;
+    --ok: #137a3a;
+    --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1116;
+      --panel: #161b22;
+      --text: #e6e9ee;
+      --muted: #97a1ad;
+      --line: #2a313b;
+      --soft: #1d232c;
+      --accent: #5b8cff;
+      --accent-soft: #1c2840;
+      --accent-text: #0e1116;
+      --ok: #4ade80;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  header.top {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  header.top h1 { margin: 0; font-size: 17px; white-space: nowrap; }
+  header.top .stats { color: var(--muted); white-space: nowrap; }
+  header.top .search { margin-left: auto; width: min(340px, 45vw); }
+  .search input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    min-height: calc(100vh - 57px);
+  }
+  .layout > * { min-width: 0; }
+  nav.tabs {
+    position: sticky;
+    top: 57px;
+    align-self: start;
+    max-height: calc(100vh - 57px);
+    overflow-y: auto;
+    padding: 16px 12px;
+    border-right: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .tabs .group {
+    margin: 14px 8px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .tabs .group:first-child { margin-top: 0; }
+  .tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 10px;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    text-align: left;
+  }
+  .tab:hover { background: var(--soft); }
+  .tab[aria-selected="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  .tab .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tab .count {
+    min-width: 26px;
+    padding: 0 7px;
+    border-radius: 999px;
+    background: var(--soft);
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+  }
+  .tab[aria-selected="true"] .count { background: var(--accent); color: var(--accent-text); }
+  .tab.empty { color: var(--muted); }
+
+  main { padding: 24px; min-width: 0; }
+  .panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .panel-head h2 { margin: 0; font-size: 22px; }
+  .panel-head .meta { color: var(--muted); }
+  .panel-head .actions { display: flex; gap: 8px; margin-left: auto; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .btn:hover { background: var(--soft); text-decoration: none; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+  .btn.primary:hover { filter: brightness(1.08); background: var(--accent); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn.done { border-color: var(--ok); color: var(--ok); }
+  .btn.primary.done { background: var(--ok); border-color: var(--ok); color: var(--accent-text); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
+  .thumb {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background:
+      conic-gradient(var(--soft) 25%, transparent 0 50%, var(--soft) 0 75%, transparent 0) 0 0 / 16px 16px,
+      var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  /* Fixed-size preview box: tall or wide images are scaled to fit, not stretched. */
+  .thumb img, .thumb video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+  .card .body { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px 14px; flex: 1; }
+  .card .title { margin: 0; font-size: 14px; font-weight: 600; }
+  .card .sub { color: var(--muted); font-size: 12px; margin-top: -6px; overflow-wrap: anywhere; }
+  .code {
+    margin: 0;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: var(--soft);
+    font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 84px;
+    overflow: auto;
+  }
+  .card .row { display: flex; gap: 8px; margin-top: auto; }
+  .card .row .btn { flex: 1; justify-content: center; }
+
+  .empty-state {
+    padding: 56px 24px;
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+    text-align: center;
+    color: var(--muted);
+  }
+  .empty-state strong { display: block; margin-bottom: 4px; color: var(--text); font-size: 15px; }
+
+  footer.foot { padding: 8px 24px 24px; color: var(--muted); font-size: 12px; }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translate(-50%, 20px);
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: var(--text);
+    color: var(--bg);
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (max-width: 760px) {
+    header.top { flex-wrap: wrap; gap: 4px 12px; padding: 12px 16px; }
+    header.top .stats { white-space: normal; font-size: 13px; }
+    header.top .search { width: 100%; margin-left: 0; }
+    .layout { grid-template-columns: minmax(0, 1fr); }
+    .panel-head .actions { margin-left: 0; width: 100%; }
+    .panel-head .actions .btn { flex: 1; justify-content: center; }
+    nav.tabs {
+      position: static;
+      max-height: none;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 10px 12px;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .tabs .group { display: none; }
+    .tab { width: auto; flex: none; }
+    main { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>WRTeam Presentation Images</h1>
+  <span class="stats" id="stats"></span>
+  <label class="search">
+    <input id="search" type="search" placeholder="Search files..." aria-label="Search files" autocomplete="off">
+  </label>
+</header>
+
+<div class="layout">
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Products" aria-orientation="vertical"></nav>
+  <main>
+    <section id="panel" role="tabpanel" tabindex="-1"></section>
+  </main>
+</div>
+
+<footer class="foot">
+  © 2026 WRTeam. All rights reserved. For authorised WRTeam members only.
+  <a href="__REPO_URL__">Repository</a> ·
+  <a href="__REPO_URL__/blob/main/.github/CONTRIBUTING.md">How to add images</a>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Generated by .github/scripts/update_readme.py from the repo's folders. Do not edit by hand. -->
+<script type="application/json" id="data">__DATA__</script>
+<script>
+(() => {
+  const folders = JSON.parse(document.getElementById("data").textContent);
+  const repoUrl = "__REPO_URL__";
+  const $ = (id) => document.getElementById(id);
+  const tabsEl = $("tabs"), panelEl = $("panel"), searchEl = $("search"), toastEl = $("toast");
+  let active = null;
+  let query = "";
+
+  const el = (tag, props = {}, ...children) => {
+    const node = document.createElement(tag);
+    for (const [k, v] of Object.entries(props)) {
+      if (k === "class") node.className = v;
+      else if (k === "text") node.textContent = v;
+      else if (k.startsWith("on")) node.addEventListener(k.slice(2), v);
+      else node.setAttribute(k, v);
+    }
+    node.append(...children);
+    return node;
+  };
+  const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
+  const matches = (file) => !query || (file.title + " " + file.name).toLowerCase().includes(query);
+  const visible = (folder) => folder.files.filter(matches);
+
+  // Stats
+  const all = folders.flatMap((f) => f.files);
+  const videos = all.filter((f) => f.kind === "Video").length;
+  $("stats").textContent =
+    `${plural(all.length - videos, "image")} · ${videos ? plural(videos, "video") + " · " : ""}${plural(folders.length, "folder")}`;
+
+  // Clipboard with a fallback for older browsers and non-secure pages.
+  async function copy(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const area = el("textarea", { style: "position:fixed;opacity:0" });
+      area.value = text;
+      document.body.append(area);
+      area.select();
+      document.execCommand("copy");
+      area.remove();
+    }
+  }
+  let toastTimer;
+  function toast(message) {
+    toastEl.textContent = message;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove("show"), 1800);
+  }
+  function flash(button, label) {
+    const original = button.textContent;
+    button.textContent = label;
+    button.classList.add("done");
+    setTimeout(() => {
+      button.textContent = original;
+      button.classList.remove("done");
+    }, 1400);
+  }
+
+  function renderTabs() {
+    tabsEl.replaceChildren();
+    const withFiles = folders.filter((f) => visible(f).length);
+    const rest = folders.filter((f) => !visible(f).length);
+    const addGroup = (label, list) => {
+      if (!list.length) return;
+      tabsEl.append(el("div", { class: "group", text: label }));
+      for (const folder of list) {
+        const n = visible(folder).length;
+        const selected = folder.id === active;
+        tabsEl.append(
+          el(
+            "button",
+            {
+              class: "tab" + (n ? "" : " empty"),
+              role: "tab",
+              id: "tab-" + folder.id,
+              "aria-selected": String(selected),
+              "aria-controls": "panel",
+              tabindex: selected ? "0" : "-1",
+              onclick: () => select(folder.id, true),
+            },
+            el("span", { class: "name", text: folder.name }),
+            el("span", { class: "count", text: String(n) }),
+          ),
+        );
+      }
+    };
+    addGroup(query ? "Matches" : "Products", withFiles);
+    addGroup(query ? "No matches" : "No files yet", rest);
+  }
+
+  function card(file) {
+    const media =
+      file.kind === "Video"
+        ? el("video", { src: file.url, preload: "metadata", muted: "", playsinline: "" })
+        : el("img", { src: file.url, alt: file.title, loading: "lazy", decoding: "async" });
+    const copyBtn = el("button", { class: "btn primary", type: "button", text: "Copy" });
+    copyBtn.addEventListener("click", async () => {
+      await copy(file.tag);
+      flash(copyBtn, "Copied");
+      toast(`Copied tag for "${file.title}"`);
+    });
+    return el(
+      "article",
+      { class: "card" },
+      el("a", { class: "thumb", href: file.url, target: "_blank", rel: "noopener", title: "Open full size" }, media),
+      el(
+        "div",
+        { class: "body" },
+        el("h3", { class: "title", text: file.title }),
+        el("div", { class: "sub", text: `${file.kind} · ${file.name}` }),
+        el("pre", { class: "code", text: file.tag }),
+        el(
+          "div",
+          { class: "row" },
+          copyBtn,
+          el("a", { class: "btn", href: file.url, target: "_blank", rel: "noopener", text: "View" }),
+        ),
+      ),
+    );
+  }
+
+  function renderPanel() {
+    const folder = folders.find((f) => f.id === active);
+    panelEl.replaceChildren();
+    if (!folder) return;
+    panelEl.setAttribute("aria-labelledby", "tab-" + folder.id);
+    const files = visible(folder);
+    const copyAll = el("button", {
+      class: "btn primary",
+      type: "button",
+      text: `Copy all (${files.length})`,
+    });
+    copyAll.disabled = !files.length;
+    copyAll.addEventListener("click", async () => {
+      await copy(files.map((f) => f.tag).join("\n"));
+      flash(copyAll, "Copied");
+      toast(`Copied ${plural(files.length, "tag")} from ${folder.name}`);
+    });
+    panelEl.append(
+      el(
+        "div",
+        { class: "panel-head" },
+        el("h2", { text: folder.name }),
+        el("span", {
+          class: "meta",
+          text: query ? `${files.length} of ${plural(folder.files.length, "file")}` : plural(folder.files.length, "file"),
+        }),
+        el(
+          "div",
+          { class: "actions" },
+          el("a", {
+            class: "btn",
+            href: `${repoUrl}/tree/main/${encodeURIComponent(folder.name)}`,
+            target: "_blank",
+            rel: "noopener",
+            text: "Open on GitHub",
+          }),
+          copyAll,
+        ),
+      ),
+    );
+    if (files.length) {
+      panelEl.append(el("div", { class: "grid" }, ...files.map(card)));
+    } else {
+      panelEl.append(
+        el(
+          "div",
+          { class: "empty-state" },
+          el("strong", { text: query ? "No matching files" : "No files yet" }),
+          query
+            ? "Try a different search."
+            : el("span", {}, "Upload images to this folder on GitHub. ",
+                el("a", { href: `${repoUrl}/tree/main/${encodeURIComponent(folder.name)}`, target: "_blank", rel: "noopener", text: "Open folder" })),
+        ),
+      );
+    }
+  }
+
+  function select(id, focus) {
+    if (!folders.some((f) => f.id === id)) return;
+    active = id;
+    history.replaceState(null, "", "#" + id);
+    renderTabs();
+    renderPanel();
+    if (focus) $("tab-" + id)?.focus();
+  }
+
+  // Arrow keys move between tabs.
+  tabsEl.addEventListener("keydown", (e) => {
+    const tabs = [...tabsEl.querySelectorAll(".tab")];
+    const i = tabs.indexOf(document.activeElement);
+    if (i < 0) return;
+    const next = { ArrowDown: i + 1, ArrowRight: i + 1, ArrowUp: i - 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+    if (next === undefined) return;
+    e.preventDefault();
+    const target = tabs[(next + tabs.length) % tabs.length];
+    select(target.id.slice(4), true);
+  });
+
+  searchEl.addEventListener("input", () => {
+    query = searchEl.value.trim().toLowerCase();
+    const current = folders.find((f) => f.id === active);
+    if (query && current && !visible(current).length) {
+      const first = folders.find((f) => visible(f).length);
+      if (first) active = first.id;
+    }
+    renderTabs();
+    renderPanel();
+  });
+
+  window.addEventListener("hashchange", () => select(location.hash.slice(1)));
+
+  const fromHash = location.hash.slice(1);
+  const start = folders.find((f) => f.id === fromHash) || folders.find((f) => f.files.length) || folders[0];
+  if (start) select(start.id);
+})();
+</script>
+</body>
+</html>

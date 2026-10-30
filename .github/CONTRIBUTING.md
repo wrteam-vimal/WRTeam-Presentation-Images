@@ -7,10 +7,14 @@ Images and videos for WRTeam products, one folder per product. The [README](../R
 
 ## Copy an image tag
 
+**Easiest: the [Browse page](https://wrteam-vimal.github.io/WRTeam-Presentation-Images/).** Pick a product tab, then click **Copy** on a card or **Copy all** for the whole product. Search finds files across all products.
+
+**Or in the README:**
+
 1. Open the [README](../README.md#folders) and click a product name to expand it. Recently changed products are listed first.
 2. Click the copy button at the top-right of a code block to copy that file's tag.
-3. To copy every tag in a product at once, open **📋 Copy all** and use its copy button.
-4. Click **🔍 View** next to a title to see the image before copying.
+3. To copy every tag in a product at once, open **Copy all** and use its copy button.
+4. Click **View** next to a title to see the image before copying.
 
 Each tag looks like this, with the file's title used for `alt` and `title`:
 

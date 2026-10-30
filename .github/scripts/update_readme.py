@@ -10,6 +10,7 @@ Also keeps the WRTeam copyright year range in README.md and LICENSE current.
 """
 import datetime
 import html
+import json
 import os
 import re
 import subprocess
@@ -21,6 +22,8 @@ BRANCH = os.environ.get("BRANCH", "main")
 BEFORE = os.environ.get("BEFORE", "")  # commit before this push, if known
 README = "README.md"
 LICENSE = "LICENSE"
+INDEX = "index.html"  # single-page browser for GitHub Pages, built from the template below
+INDEX_TEMPLATE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.template.html")
 ROOT = "Uncategorized"  # section for media files left in the repo root
 FOOTER = '<a id="how-to-use"></a>'  # start of the hand-written guide at the end of the README
 IMAGE_EXTS = {".webp", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".avif"}
@@ -201,14 +204,48 @@ def tag(path, title):
     return f'<img src="{src}" alt="{t}" title="{t}">'
 
 
+def title_of(path, titles):
+    name = os.path.basename(path)
+    return titles.get(path) or titles.get(name) or title_from(os.path.splitext(name)[0])
+
+
+def write_index(ordered, rows, titles):
+    """Write index.html: one tab per folder with copy buttons, data embedded as JSON."""
+    if not os.path.exists(INDEX_TEMPLATE):
+        return
+    data = [
+        {
+            "id": anchor(section),
+            "name": section,
+            "files": [
+                {
+                    "title": title_of(p, titles),
+                    "name": os.path.basename(p),
+                    "kind": "Video" if is_video(p) else "Image",
+                    "url": raw_url(p),
+                    "tag": tag(p, title_of(p, titles)),
+                }
+                for p in rows[section]
+            ],
+        }
+        for section in ordered
+    ]
+    # Escaping every "<" keeps titles from closing the <script> block early.
+    payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("<", "\\u003c")
+    page = open(INDEX_TEMPLATE, encoding="utf-8").read()
+    page = page.replace("__DATA__", payload).replace("__REPO_URL__", f"https://github.com/{REPO}")
+    with open(INDEX, "w", encoding="utf-8") as fh:
+        fh.write(stamp_year(page))
+
+
 def files_block(paths, titles):
     """A collapsible "copy all" code block, then one code block per file (GitHub adds copy buttons)."""
-    named = [(p, titles.get(p) or titles.get(os.path.basename(p)) or title_from(os.path.splitext(os.path.basename(p))[0])) for p in paths]
+    named = [(p, title_of(p, titles)) for p in paths]
     # GitHub does not indent nested <details>, so the blockquote shows it is inside the folder.
     out = [
         "<blockquote>",
         "<details>",
-        f"<summary>📋 Copy all ({plural(len(named), 'tag')})</summary>",
+        f"<summary>Copy all ({plural(len(named), 'tag')})</summary>",
         "",
         "```html",
         *(tag(p, t) for p, t in named),
@@ -220,7 +257,7 @@ def files_block(paths, titles):
     ]
     for i, (p, t) in enumerate(named, 1):
         kind = "Video" if is_video(p) else "Image"
-        out += [f"**{i}. {t}** ({kind}) · [🔍 View]({raw_url(p)})", "", "```html", tag(p, t), "```", ""]
+        out += [f"**{i}. {t}** ({kind}) · [View]({raw_url(p)})", "", "```html", tag(p, t), "```", ""]
     return out
 
 
@@ -266,10 +303,10 @@ def main():
         lines += [
             f'<a id="{anchor(section)}"></a>',
             "<details>",
-            f"<summary>📁 <b>{html.escape(section)}</b> ({plural(n, 'file')})</summary>",
+            f"<summary><b>{html.escape(section)}</b> ({plural(n, 'file')})</summary>",
             "",
             *(files_block(rows[section], titles) if n else ["_No files yet._", ""]),
-            "[⬆ Back to folders](#folders)",
+            "[Back to folders](#folders)",
             "",
             "</details>",
             "",
@@ -279,6 +316,7 @@ def main():
             lines += ["---", "", footer]
         fh.write(stamp_year("\n".join(lines).rstrip() + "\n"))
     print(f"README.md lists {len(every)} files in {len(ordered)} sections")
+    write_index(ordered, rows, titles)
 
     if os.path.exists(LICENSE):
         text = open(LICENSE, encoding="utf-8").read()
