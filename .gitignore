@@ -1,2 +1,63 @@
+# Image repo: only images, README.md and .github/ should be tracked.
+# Note: CI runs `git add -A`, so never ignore image files here.
+
+# --- Claude Code / AI tooling ---
 .claude/
+
+# --- macOS ---
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+Icon?
+
+# --- Windows ---
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- Linux ---
+*~
+.directory
+.Trash-*
+
+# --- Editors / IDEs ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+
+# --- Python (CI script) ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- Node (if tooling is ever added) ---
+node_modules/
+npm-debug.log*
+
+# --- Logs, temp & backups ---
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+tmp/
+temp/
+
+# --- Design source / working files (export to web formats before committing) ---
+*.psd
+*.ai
+*.sketch
+*.fig
+*.xcf
+
+# --- Secrets ---
+.env
+.env.*
