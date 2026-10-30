@@ -16,7 +16,7 @@ import subprocess
 import sys
 from urllib.parse import quote, unquote
 
-REPO = os.environ.get("REPO", "wrteam-vimal/eMarket-Images")
+REPO = os.environ.get("REPO", "wrteam-vimal/WRTeam-Presentation-Images")
 BRANCH = os.environ.get("BRANCH", "main")
 BEFORE = os.environ.get("BEFORE", "")  # commit before this push, if known
 README = "README.md"
