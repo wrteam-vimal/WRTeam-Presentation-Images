@@ -7,14 +7,6 @@ Total images: 89 · Total videos: 0 · Folders: 30
 <a id="folders"></a>
 
 ## Folders
-
-| Folder | Files |
-|---|---|
-| [📁 SnapBuy](#folder-snapbuy) | 2 |
-| [📁 eMarket](#folder-emarket) | 87 |
-
-<sub>No files yet: eClassify - Cars and Motors, eClassify, eSchool SaaS, eBroker, eDemand, Elite Quiz - Flutter App, Elite Quiz - Web Version, eStay, eTaxi, News App and Web, eLMS, eSchool, Tic Tac Toe, Cashfree Payment Gateway Add-on for eClassify, Dedicated Application for Schools - eSchool SaaS Add-on, Shiprocket Shipping Add-on for SnapBuy, PayU Payment Gateway Add-on, HotelDash, Fitvive, BizFusionX, Techify, Servly, BicyCart, CropCore, PlugNpark, Aurenix, Bondly, Musinto</sub>
-
 <a id="folder-snapbuy"></a>
 <details>
 <summary>📁 <b>SnapBuy</b> (2 files)</summary>
