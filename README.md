@@ -2,6 +2,8 @@
 
 eMarket platform feature and asset images.
 
+**License:** Proprietary. © 2026 WRTeam. All rights reserved. For use by authorised WRTeam members only. See [LICENSE](LICENSE).
+
 Total images: 86
 
 | # | Image | GitHub Link | Direct (Raw) Link |
