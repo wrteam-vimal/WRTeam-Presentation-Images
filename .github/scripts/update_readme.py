@@ -22,6 +22,7 @@ BEFORE = os.environ.get("BEFORE", "")  # commit before this push, if known
 README = "README.md"
 LICENSE = "LICENSE"
 ROOT = "Uncategorized"  # section for media files left in the repo root
+APP_DIRS = {"uploader"}  # Next.js upload app, not a product folder
 IMAGE_EXTS = {".webp", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".avif"}
 VIDEO_EXTS = {".mp4", ".webm", ".mov", ".m4v"}
 EXTS = IMAGE_EXTS | VIDEO_EXTS
@@ -208,7 +209,7 @@ def files_block(paths, titles):
 def main():
     head, titles, order, sections = read_readme()
     changed = changed_paths()
-    folders = sorted(d for d in os.listdir(".") if os.path.isdir(d) and not d.startswith("."))
+    folders = sorted(d for d in os.listdir(".") if os.path.isdir(d) and not d.startswith(".") and d not in APP_DIRS)
 
     rows, touched = {}, set()
     for folder in ["", *folders]:
