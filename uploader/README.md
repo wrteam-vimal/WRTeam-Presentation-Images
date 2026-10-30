@@ -2,7 +2,7 @@
 
 Next.js app for adding images to this repo from the browser. It lives in `uploader/`, which the README script skips, so it never appears as a product folder.
 
-- **Sign in with GitHub.** Only collaborators on the repo (Settings → Collaborators, plus the owner) can sign in. This is re-checked on every upload, so removing someone locks them out right away.
+- **Sign in with GitHub.** Only people with write access to the repo can sign in: the owner, or collaborators with the Write, Maintain or Admin role (Settings → Collaborators). The check uses the person's own GitHub sign-in and runs again on every request, so removing someone locks them out right away.
 - **Upload.** Pick a folder or create a new one, then drop files. Files must be at most 4 MB each and one of `webp, png, jpg, jpeg, gif, svg, avif, mp4, webm, mov, m4v`. The browser and the server both check this.
 - **One commit.** Each upload becomes one commit on `main`, with the uploader as author. Existing files are never overwritten. The repo's GitHub Action then renames the files and rebuilds the README.
 

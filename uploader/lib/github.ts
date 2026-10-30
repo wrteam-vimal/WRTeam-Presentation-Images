@@ -25,8 +25,8 @@ export class GitHubError extends Error {
 /** A problem the user can fix (e.g. a file that already exists). */
 export class UploadConflict extends Error {}
 
-async function gh<T>(path: string, init: { method?: string; body?: unknown } = {}): Promise<T> {
-  const token = process.env.GITHUB_TOKEN;
+async function gh<T>(path: string, init: { method?: string; body?: unknown; token?: string } = {}): Promise<T> {
+  const token = init.token ?? process.env.GITHUB_TOKEN;
   if (!token) throw new Error("GITHUB_TOKEN is not set.");
   const res = await fetch(`${API}/repos/${repo.owner}/${repo.name}${path}`, {
     method: init.method ?? "GET",
@@ -46,13 +46,21 @@ async function gh<T>(path: string, init: { method?: string; body?: unknown } = {
   return (res.status === 204 ? undefined : await res.json()) as T;
 }
 
-/** True if the GitHub user is the owner or a collaborator on the repo. */
-export async function isCollaborator(login: string): Promise<boolean> {
+/**
+ * True if the signed-in user (identified by their own GitHub OAuth token) can write to the repo:
+ * the owner, or a collaborator with Write, Maintain or Admin access.
+ * Uses the user's token because fine-grained PATs cannot call the collaborators API.
+ */
+export async function hasWriteAccess(userToken: string): Promise<boolean> {
   try {
-    await gh(`/collaborators/${encodeURIComponent(login)}`);
-    return true;
+    const info = await gh<{ permissions?: { admin?: boolean; maintain?: boolean; push?: boolean } }>("", {
+      token: userToken,
+    });
+    const p = info.permissions ?? {};
+    return !!(p.admin || p.maintain || p.push);
   } catch (e) {
-    if (e instanceof GitHubError && e.status === 404) return false;
+    // 401 = token revoked/expired, 404 = no access to the repo.
+    if (e instanceof GitHubError && (e.status === 401 || e.status === 404)) return false;
     throw e;
   }
 }

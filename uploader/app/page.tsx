@@ -1,5 +1,5 @@
 import { auth, signIn, signOut } from "@/auth";
-import { isCollaborator, listFolders, repo, repoUrl } from "@/lib/github";
+import { listFolders, repo, repoUrl } from "@/lib/github";
 import Uploader from "./uploader";
 
 export const dynamic = "force-dynamic";
@@ -9,15 +9,18 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ e
   const session = await auth();
   const login = session?.user?.login;
 
-  if (!login || !(await isCollaborator(login))) {
+  if (!login || !session.user.canWrite) {
     const denied = error === "AccessDenied" || !!login;
     return (
       <main className="card narrow">
         <h1>WRTeam Presentation Images</h1>
-        <p className="muted">Upload images to the {repo.name} repo. Only repo collaborators can sign in.</p>
+        <p className="muted">
+          Upload images to the {repo.name} repo. Only repo collaborators with write access can sign in.
+        </p>
         {denied && (
           <p className="error">
-            That GitHub account is not a collaborator on {repo.owner}/{repo.name}. Ask the repo owner to add you.
+            That GitHub account does not have write access to {repo.owner}/{repo.name}. Ask the repo owner to add you
+            as a collaborator.
           </p>
         )}
         {error && !denied && <p className="error">Sign-in failed ({error}). Please try again.</p>}
