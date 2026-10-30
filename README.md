@@ -4,7 +4,17 @@ WRTeam product images and videos, grouped by product folder.
 
 **License:** Proprietary. © 2026 WRTeam. All rights reserved. For use by authorised WRTeam members only. See [LICENSE](LICENSE).
 
-Total images: 87 · Total videos: 0 · Folders: 30
+Total images: 89 · Total videos: 0 · Folders: 30
+
+<details>
+<summary><b>Uncategorized</b> (2 files)</summary>
+
+| # | Title | Type | Direct (Raw) Link |
+|---|---|---|---|
+| 1 | Daily Reward Spinner | Image | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/daily-reward-spinner.png |
+| 2 | Shiprocket Addons Gif | Image | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/shiprocket-addons-gif.gif |
+
+</details>
 
 <details>
 <summary><b>eMarket</b> (87 files)</summary>
