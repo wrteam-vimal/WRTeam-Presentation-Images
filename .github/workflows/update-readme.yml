@@ -1,9 +1,13 @@
 name: Update image links
 
 # On every push to main: renames new images/videos to URL-safe names and
-# rebuilds the README tables (GitHub + raw links) so they match the files.
+# rebuilds the README (GitHub + raw links) so it matches the files. Every
+# top-level folder gets its own collapsible table; new or changed files go
+# to the top of their folder's table and that folder moves to the top.
 #
 # Just add, rename or delete images and push (or upload via the GitHub UI).
+# A new folder is picked up automatically once it holds a file (git does
+# not store empty folders; add a .gitkeep if it has no images yet).
 # Titles already in README.md are kept, so you can edit a title by hand.
 # No secrets needed: it commits back with the built-in GITHUB_TOKEN, which
 # does not re-trigger this workflow.
@@ -30,6 +34,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history (without file contents) so the script can see which
+          # files this push changed.
+          fetch-depth: 0
+          filter: blob:none
 
       - uses: actions/setup-python@v5
         with:
@@ -39,6 +48,7 @@ jobs:
         env:
           REPO: ${{ github.repository }}
           BRANCH: main
+          BEFORE: ${{ github.event.before }}
         run: python .github/scripts/update_readme.py
 
       - name: Commit changes
