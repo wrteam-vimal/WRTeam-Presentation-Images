@@ -4,7 +4,7 @@ eMarket platform feature and asset images.
 
 **License:** Proprietary. © 2026 WRTeam. All rights reserved. For use by authorised WRTeam members only. See [LICENSE](LICENSE).
 
-Total images: 87
+Total images: 86
 
 | # | Image | GitHub Link | Direct (Raw) Link |
 |---|---|---|---|
@@ -93,8 +93,7 @@ Total images: 87
 | 83 | User & Role Management | [77-user-and-role-management.webp](https://github.com/wrteam-vimal/eMarket-Images/blob/main/77-user-and-role-management.webp) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/77-user-and-role-management.webp |
 | 84 | FAQ Management | [78-faq-management.webp](https://github.com/wrteam-vimal/eMarket-Images/blob/main/78-faq-management.webp) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/78-faq-management.webp |
 | 85 | New dashboard | [new-dashboard.webp](https://github.com/wrteam-vimal/eMarket-Images/blob/main/new-dashboard.webp) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/new-dashboard.webp |
-| 86 | Test 12 TEST 12324 | [test-12-test-12324.png](https://github.com/wrteam-vimal/eMarket-Images/blob/main/test-12-test-12324.png) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/test-12-test-12324.png |
-| 87 | Update V4.0.2 | [update-v4-0-2.webp](https://github.com/wrteam-vimal/eMarket-Images/blob/main/update-v4-0-2.webp) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/update-v4-0-2.webp |
+| 86 | Update V4.0.2 | [update-v4-0-2.webp](https://github.com/wrteam-vimal/eMarket-Images/blob/main/update-v4-0-2.webp) | https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/update-v4-0-2.webp |
 
 ## Videos
 
