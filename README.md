@@ -9,12 +9,15 @@ Total images: 89 · Total videos: 0 · Folders: 30
 <details>
 <summary><b>SnapBuy</b> (2 files)</summary>
 
-**Copy all**
+<details>
+<summary>Copy all (2 tags)</summary>
 
 ```html
 <img src="https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/SnapBuy/daily-reward-spinner.png" alt="Daily Reward Spinner" title="Daily Reward Spinner">
 <img src="https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/SnapBuy/shiprocket-addons-gif.gif" alt="Shiprocket Addons Gif" title="Shiprocket Addons Gif">
 ```
+
+</details>
 
 **1. Daily Reward Spinner** (Image)
 
@@ -33,7 +36,8 @@ Total images: 89 · Total videos: 0 · Folders: 30
 <details>
 <summary><b>eMarket</b> (87 files)</summary>
 
-**Copy all**
+<details>
+<summary>Copy all (87 tags)</summary>
 
 ```html
 <img src="https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/eMarket/01-one-platform-to-power-every-ecommerce-business.webp" alt="One Platform to Power Every Ecommerce Business" title="One Platform to Power Every Ecommerce Business">
@@ -124,6 +128,8 @@ Total images: 89 · Total videos: 0 · Folders: 30
 <img src="https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/eMarket/new-dashboard.webp" alt="New dashboard" title="New dashboard">
 <img src="https://raw.githubusercontent.com/wrteam-vimal/eMarket-Images/main/eMarket/update-v4-0-2.webp" alt="Update V4.0.2" title="Update V4.0.2">
 ```
+
+</details>
 
 **1. One Platform to Power Every Ecommerce Business** (Image)
 

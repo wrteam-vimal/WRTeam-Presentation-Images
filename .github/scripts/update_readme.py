@@ -184,9 +184,19 @@ def tag(path, title):
 
 
 def files_block(paths, titles):
-    """A "copy all" code block, then one code block per file (GitHub adds copy buttons)."""
+    """A collapsible "copy all" code block, then one code block per file (GitHub adds copy buttons)."""
     named = [(p, titles.get(p) or titles.get(os.path.basename(p)) or title_from(os.path.splitext(os.path.basename(p))[0])) for p in paths]
-    out = ["**Copy all**", "", "```html", *(tag(p, t) for p, t in named), "```", ""]
+    out = [
+        "<details>",
+        f"<summary>Copy all ({len(named)} tag{'' if len(named) == 1 else 's'})</summary>",
+        "",
+        "```html",
+        *(tag(p, t) for p, t in named),
+        "```",
+        "",
+        "</details>",
+        "",
+    ]
     for i, (p, t) in enumerate(named, 1):
         out += [f"**{i}. {t}** ({'Video' if is_video(p) else 'Image'})", "", "```html", tag(p, t), "```", ""]
     return out
