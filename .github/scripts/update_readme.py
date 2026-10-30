@@ -22,14 +22,13 @@ BEFORE = os.environ.get("BEFORE", "")  # commit before this push, if known
 README = "README.md"
 LICENSE = "LICENSE"
 ROOT = "Uncategorized"  # section for media files left in the repo root
-APP_DIRS = {"uploader"}  # Next.js upload app, not a product folder
 IMAGE_EXTS = {".webp", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".avif"}
 VIDEO_EXTS = {".mp4", ".webm", ".mov", ".m4v"}
 EXTS = IMAGE_EXTS | VIDEO_EXTS
-SECTION = re.compile(r"^<summary><b>(.+?)</b>")
-# Each file is a "**1. Title** (Image)" line followed by a code block whose tag
-# src gives the file path (relative to the repo root).
-ITEM = re.compile(r"^\*\*\d+\. (.*)\*\* \((?:Image|Video)\)$")
+SECTION = re.compile(r"^<summary>[^<]*<b>(.+?)</b>")
+# Each file is a "**1. Title** (Image) · [View](...)" line followed by a code block
+# whose tag src gives the file path (relative to the repo root).
+ITEM = re.compile(r"^\*\*\d+\. (.*?)\*\* \((?:Image|Video)\)(?: · .*)?$")
 SRC = re.compile(r'src="https://raw\.githubusercontent\.com/[^/]+/[^/]+/[^/]+/([^"]+)"')
 # Older table layout: title plus file name, from the raw link or "[name](...)" column.
 ROW = re.compile(
@@ -175,9 +174,21 @@ def is_video(path):
     return os.path.splitext(path)[1].lower() in VIDEO_EXTS
 
 
+def raw_url(path):
+    return f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/{quote(path)}"
+
+
+def anchor(section):
+    return f"folder-{slugify(section)}"
+
+
+def plural(n, word):
+    return f"{n} {word}{'' if n == 1 else 's'}"
+
+
 def tag(path, title):
     """HTML tag that embeds the file from its direct raw URL."""
-    src = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/{quote(path)}"
+    src = raw_url(path)
     t = html.escape(title)
     if is_video(path):
         return f'<video src="{src}" title="{t}" controls></video>'
@@ -191,7 +202,7 @@ def files_block(paths, titles):
     out = [
         "<blockquote>",
         "<details>",
-        f"<summary>Copy all ({len(named)} tag{'' if len(named) == 1 else 's'})</summary>",
+        f"<summary>📋 Copy all ({plural(len(named), 'tag')})</summary>",
         "",
         "```html",
         *(tag(p, t) for p, t in named),
@@ -202,14 +213,15 @@ def files_block(paths, titles):
         "",
     ]
     for i, (p, t) in enumerate(named, 1):
-        out += [f"**{i}. {t}** ({'Video' if is_video(p) else 'Image'})", "", "```html", tag(p, t), "```", ""]
+        kind = "Video" if is_video(p) else "Image"
+        out += [f"**{i}. {t}** ({kind}) · [🔍 View]({raw_url(p)})", "", "```html", tag(p, t), "```", ""]
     return out
 
 
 def main():
     head, titles, order, sections = read_readme()
     changed = changed_paths()
-    folders = sorted(d for d in os.listdir(".") if os.path.isdir(d) and not d.startswith(".") and d not in APP_DIRS)
+    folders = sorted(d for d in os.listdir(".") if os.path.isdir(d) and not d.startswith("."))
 
     rows, touched = {}, set()
     for folder in ["", *folders]:
@@ -242,13 +254,26 @@ def main():
         f"Total images: {len(every) - videos} · Total videos: {videos} · Folders: {len(folders)}",
         "",
     ]
+    # Quick index: folders with files (latest changes first) link to their section.
+    filled = [s for s in ordered if rows[s]]
+    empty = [s for s in ordered if not rows[s]]
+    lines += ['<a id="folders"></a>', "", "## Folders", ""]
+    if filled:
+        lines += ["| Folder | Files |", "|---|---|"]
+        lines += [f"| [📁 {s}](#{anchor(s)}) | {len(rows[s])} |" for s in filled]
+        lines.append("")
+    if empty:
+        lines += [f"<sub>No files yet: {', '.join(empty)}</sub>", ""]
     for section in ordered:
         n = len(rows[section])
         lines += [
+            f'<a id="{anchor(section)}"></a>',
             "<details>",
-            f"<summary><b>{html.escape(section)}</b> ({n} file{'' if n == 1 else 's'})</summary>",
+            f"<summary>📁 <b>{html.escape(section)}</b> ({plural(n, 'file')})</summary>",
             "",
             *(files_block(rows[section], titles) if n else ["_No files yet._", ""]),
+            "[⬆ Back to folders](#folders)",
+            "",
             "</details>",
             "",
         ]
