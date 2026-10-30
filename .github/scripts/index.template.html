@@ -170,15 +170,38 @@
   .layout > * { min-width: 0; }
 
   /* Sidebar tabs */
-  nav.tabs {
+  aside.side {
     position: sticky;
     top: 64px;
     align-self: start;
-    max-height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 64px);
+  }
+  .folder-search { position: relative; padding: 20px 14px 6px; }
+  .folder-search svg { position: absolute; left: 26px; top: calc(50% + 7px); transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+  .folder-search input {
+    width: 100%;
+    height: 36px;
+    padding: 0 12px 0 34px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--solid);
+    color: var(--text);
+    font: inherit;
+    font-size: 13px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .folder-search input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .folder-search input::-webkit-search-cancel-button { display: none; }
+  nav.tabs {
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
-    padding: 20px 14px 28px;
+    padding: 12px 14px 28px;
     scrollbar-width: thin;
   }
+  .tabs .none { margin: 8px 10px; color: var(--muted); font-size: 13px; }
   .tabs .group {
     display: flex;
     justify-content: space-between;
@@ -471,20 +494,24 @@
     .search kbd { display: none; }
     .icon-btn { margin-left: auto; }
     .layout { grid-template-columns: minmax(0, 1fr); }
-    nav.tabs {
-      position: sticky;
+    aside.side {
       top: 0;
       z-index: 15;
-      display: flex;
-      gap: 8px;
-      max-height: none;
-      overflow-x: auto;
-      padding: 10px 16px;
+      height: auto;
       background: var(--panel);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
     }
+    .folder-search { padding: 10px 16px 0; }
+    .folder-search svg { left: 28px; top: calc(50% + 5px); }
+    nav.tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 16px;
+    }
+    .tabs .none { margin: 6px 0; white-space: nowrap; }
     .tabs .group { display: none; }
     .tab { width: auto; flex: none; padding: 6px 10px 6px 6px; border-color: var(--line); background: var(--solid); }
     .tab .avatar { width: 24px; height: 24px; border-radius: 7px; font-size: 10px; }
@@ -515,7 +542,13 @@
 </header>
 
 <div class="layout">
-  <nav class="tabs" id="tabs" role="tablist" aria-label="Products" aria-orientation="vertical"></nav>
+  <aside class="side">
+    <label class="folder-search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>
+      <input id="folder-search" type="search" placeholder="Find a product..." aria-label="Find a product" autocomplete="off">
+    </label>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Products" aria-orientation="vertical"></nav>
+  </aside>
   <main>
     <section id="panel" role="tabpanel" tabindex="-1"></section>
   </main>
@@ -552,6 +585,7 @@
   const viewer = $("viewer"), stage = $("stage");
   let active = null;
   let query = "";
+  let folderQuery = "";
   let viewList = [], viewIndex = 0;
 
   const ICONS = {
@@ -655,8 +689,13 @@
 
   function renderTabs() {
     tabsEl.replaceChildren();
-    const withFiles = folders.filter((f) => visible(f).length);
-    const rest = folders.filter((f) => !visible(f).length);
+    const shown = folders.filter((f) => !folderQuery || f.name.toLowerCase().includes(folderQuery));
+    if (!shown.length) {
+      tabsEl.append(el("p", { class: "none", text: "No products match." }));
+      return;
+    }
+    const withFiles = shown.filter((f) => visible(f).length);
+    const rest = shown.filter((f) => !visible(f).length);
     const addGroup = (label, list) => {
       if (!list.length) return;
       tabsEl.append(el("div", { class: "group" }, el("span", { text: label }), el("span", { text: String(list.length) })));
@@ -850,6 +889,23 @@
     }
     renderTabs();
     renderPanel();
+  });
+
+  // Product search: filters the sidebar by product name; Esc clears it.
+  const folderSearchEl = $("folder-search");
+  folderSearchEl.addEventListener("input", () => {
+    folderQuery = folderSearchEl.value.trim().toLowerCase();
+    renderTabs();
+  });
+  folderSearchEl.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && folderSearchEl.value) {
+      folderSearchEl.value = "";
+      folderSearchEl.dispatchEvent(new Event("input"));
+    }
+    if (e.key === "Enter") {
+      const first = tabsEl.querySelector(".tab");
+      if (first) select(first.id.slice(4), true);
+    }
   });
 
   window.addEventListener("hashchange", () => select(location.hash.slice(1)));
