@@ -4,7 +4,7 @@
 
 <sub>WRTeam product images and videos, grouped by product · © 2026 WRTeam, authorised members only ([LICENSE](LICENSE)) · **[How to use](.github/CONTRIBUTING.md)**</sub>
 
-Total images: 88 · Total videos: 0 · Folders: 30
+Total images: 89 · Total videos: 0 · Folders: 30
 
 <a id="folders"></a>
 
@@ -12,20 +12,27 @@ Total images: 88 · Total videos: 0 · Folders: 30
 
 <a id="folder-snapbuy"></a>
 <details>
-<summary><b>SnapBuy</b> (1 file)</summary>
+<summary><b>SnapBuy</b> (2 files)</summary>
 
 <blockquote>
 <details>
-<summary>Copy all (1 tag)</summary>
+<summary>Copy all (2 tags)</summary>
 
 ```html
+<img src="https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/SnapBuy/shiprocket-addons-gif.webp" alt="Shiprocket Addons Gif" title="Shiprocket Addons Gif">
 <img src="https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/SnapBuy/daily-reward-spinner.png" alt="Daily Reward Spinner" title="Daily Reward Spinner">
 ```
 
 </details>
 </blockquote>
 
-**1. Daily Reward Spinner** (Image) · [View](https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/SnapBuy/daily-reward-spinner.png)
+**1. Shiprocket Addons Gif** (Image) · [View](https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/SnapBuy/shiprocket-addons-gif.webp)
+
+```html
+<img src="https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/SnapBuy/shiprocket-addons-gif.webp" alt="Shiprocket Addons Gif" title="Shiprocket Addons Gif">
+```
+
+**2. Daily Reward Spinner** (Image) · [View](https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/SnapBuy/daily-reward-spinner.png)
 
 ```html
 <img src="https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/SnapBuy/daily-reward-spinner.png" alt="Daily Reward Spinner" title="Daily Reward Spinner">
