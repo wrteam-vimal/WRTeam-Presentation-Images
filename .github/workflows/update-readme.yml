@@ -1,9 +1,9 @@
 name: Update image links
 
 # On every push to main: renames new images/videos to URL-safe names and
-# rebuilds the README (raw links) so it matches the files. Every
-# top-level folder gets its own collapsible table; new or changed files go
-# to the top of their folder's table and that folder moves to the top.
+# rebuilds the README so it matches the files. Every top-level folder gets a
+# collapsible section with copyable <img> tags (one "copy all" block plus one
+# block per file); new or changed files and their folder move to the top.
 #
 # Just add, rename or delete images and push (or upload via the GitHub UI).
 # A new folder is picked up automatically once it holds a file (git does

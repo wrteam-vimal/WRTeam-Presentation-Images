@@ -1,8 +1,9 @@
 """Rename images and videos to URL-safe names and rebuild the README.
 
-Each top-level folder (one per product) gets a collapsible section with its
-own table. Newly added or changed files go to the top of their folder's
-table, and folders with the latest changes move to the top of the README.
+Each top-level folder (one per product) gets a collapsible section with a
+"copy all" code block and one code block per file holding its <img> tag.
+New or changed files go to the top of their folder, and folders with the
+latest changes move to the top of the README.
 Titles already in README.md are kept, so a title can be edited by hand.
 New files get a title derived from their original file name.
 Also keeps the WRTeam copyright year range in README.md and LICENSE current.
@@ -25,7 +26,11 @@ IMAGE_EXTS = {".webp", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".avif"}
 VIDEO_EXTS = {".mp4", ".webm", ".mov", ".m4v"}
 EXTS = IMAGE_EXTS | VIDEO_EXTS
 SECTION = re.compile(r"^<summary><b>(.+?)</b>")
-# Title plus file name, read from the raw link (or the older "[name](...)" link column).
+# Each file is a "**1. Title** (Image)" line followed by a code block whose tag
+# src gives the file path (relative to the repo root).
+ITEM = re.compile(r"^\*\*\d+\. (.*)\*\* \((?:Image|Video)\)$")
+SRC = re.compile(r'src="https://raw\.githubusercontent\.com/[^/]+/[^/]+/[^/]+/([^"]+)"')
+# Older table layout: title plus file name, from the raw link or "[name](...)" column.
 ROW = re.compile(
     r"^\|\s*\d+\s*\|\s*(.*?)\s*\|\s*(?:(?:Image|Video)\s*\|\s*)?"
     r"(?:\[([^\]]+)\]|https://raw\.githubusercontent\.com/\S*/([^/\s|]+))"
@@ -109,13 +114,24 @@ def read_readme():
     text = open(README, encoding="utf-8").read()
     if "\nTotal images:" in text:
         head = text.split("\nTotal images:")[0].rstrip()
-    section = None
+    section, pending = None, None
     for line in text.splitlines():
         m = SECTION.match(line)
         if m:
-            section = html.unescape(m.group(1))
+            section, pending = html.unescape(m.group(1)), None
             sections.append(section)
             order.setdefault(section, [])
+            continue
+        m = ITEM.match(line)
+        if m:
+            pending = m.group(1)
+            continue
+        m = SRC.search(line) if pending is not None else None
+        if m:
+            key = unquote(m.group(1))
+            titles[key] = pending
+            order.setdefault(section, []).append(key)
+            pending = None
             continue
         m = ROW.match(line)
         if m:
@@ -154,14 +170,26 @@ def rename_media(folder, titles):
     return {join(folder, f) for f in taken}, renamed
 
 
-def table(paths, titles):
-    rows = ["| # | Title | Type | Direct (Raw) Link |", "|---|---|---|---|"]
-    for i, path in enumerate(paths, 1):
-        name = os.path.basename(path)
-        title = titles.get(path) or titles.get(name) or title_from(os.path.splitext(name)[0])
-        kind = "Video" if os.path.splitext(name)[1].lower() in VIDEO_EXTS else "Image"
-        rows.append(f"| {i} | {title} | {kind} | https://raw.githubusercontent.com/{REPO}/{BRANCH}/{quote(path)} |")
-    return rows
+def is_video(path):
+    return os.path.splitext(path)[1].lower() in VIDEO_EXTS
+
+
+def tag(path, title):
+    """HTML tag that embeds the file from its direct raw URL."""
+    src = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/{quote(path)}"
+    t = html.escape(title)
+    if is_video(path):
+        return f'<video src="{src}" title="{t}" controls></video>'
+    return f'<img src="{src}" alt="{t}" title="{t}">'
+
+
+def files_block(paths, titles):
+    """A "copy all" code block, then one code block per file (GitHub adds copy buttons)."""
+    named = [(p, titles.get(p) or titles.get(os.path.basename(p)) or title_from(os.path.splitext(os.path.basename(p))[0])) for p in paths]
+    out = ["**Copy all**", "", "```html", *(tag(p, t) for p, t in named), "```", ""]
+    for i, (p, t) in enumerate(named, 1):
+        out += [f"**{i}. {t}** ({'Video' if is_video(p) else 'Image'})", "", "```html", tag(p, t), "```", ""]
+    return out
 
 
 def main():
@@ -193,7 +221,7 @@ def main():
     )
 
     every = [p for s in ordered for p in rows[s]]
-    videos = sum(os.path.splitext(p)[1].lower() in VIDEO_EXTS for p in every)
+    videos = sum(is_video(p) for p in every)
     lines = [
         head or f"# {REPO.split('/')[-1]}\n\nWRTeam product images and videos, grouped by product folder.",
         "",
@@ -206,8 +234,7 @@ def main():
             "<details>",
             f"<summary><b>{html.escape(section)}</b> ({n} file{'' if n == 1 else 's'})</summary>",
             "",
-            *(table(rows[section], titles) if n else ["_No files yet._"]),
-            "",
+            *(files_block(rows[section], titles) if n else ["_No files yet._", ""]),
             "</details>",
             "",
         ]
