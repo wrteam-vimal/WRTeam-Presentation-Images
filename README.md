@@ -1,6 +1,8 @@
 # WRTeam-Presentation-Images
 
-<sub>WRTeam product images and videos, grouped by product · © 2026 WRTeam, authorised members only ([LICENSE](LICENSE)) · **[Browse page](https://wrteam-vimal.github.io/WRTeam-Presentation-Images/)** · **[How to use](.github/CONTRIBUTING.md)**</sub>
+**Browse and copy image tags:** https://wrteam-vimal.github.io/WRTeam-Presentation-Images/
+
+<sub>WRTeam product images and videos, grouped by product · © 2026 WRTeam, authorised members only ([LICENSE](LICENSE)) · **[How to use](.github/CONTRIBUTING.md)**</sub>
 
 Total images: 89 · Total videos: 0 · Folders: 30
 
