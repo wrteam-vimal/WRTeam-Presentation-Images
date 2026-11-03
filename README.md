@@ -4,11 +4,43 @@
 
 <sub>WRTeam product images and videos, grouped by product · © 2026 WRTeam, authorised members only ([LICENSE](LICENSE)) · **[How to use](.github/CONTRIBUTING.md)**</sub>
 
-Total images: 89 · Total videos: 0 · Folders: 30
+Total images: 91 · Total videos: 0 · Folders: 30
 
 <a id="folders"></a>
 
 ## Folders
+
+<a id="folder-uncategorized"></a>
+<details>
+<summary><b>Uncategorized</b> (2 files)</summary>
+
+<blockquote>
+<details>
+<summary>Copy all (2 tags)</summary>
+
+```html
+<img src="https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/diwali-sale.webp" alt="Diwali Sale" title="Diwali Sale">
+<img src="https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/diwali-sale.png" alt="Diwali Sale" title="Diwali Sale">
+```
+
+</details>
+</blockquote>
+
+**1. Diwali Sale** (Image) · [View](https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/diwali-sale.webp)
+
+```html
+<img src="https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/diwali-sale.webp" alt="Diwali Sale" title="Diwali Sale">
+```
+
+**2. Diwali Sale** (Image) · [View](https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/diwali-sale.png)
+
+```html
+<img src="https://raw.githubusercontent.com/wrteam-vimal/WRTeam-Presentation-Images/main/diwali-sale.png" alt="Diwali Sale" title="Diwali Sale">
+```
+
+[Back to folders](#folders)
+
+</details>
 
 <a id="folder-snapbuy"></a>
 <details>
